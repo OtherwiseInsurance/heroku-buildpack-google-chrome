@@ -38,11 +38,11 @@ else
   channel=stable
 fi
 
-# Detect if we want remote debugging or not
+# Detect if we want remote debugging or not, default to on
 if [ -f $ENV_DIR/GOOGLE_CHROME_REMOTE_DEBUGGING ]; then
   remote_debugging=$(cat $ENV_DIR/GOOGLE_CHROME_REMOTE_DEBUGGING)
 else
-  remote_debugging=true
+  remote_debugging=on
 fi
 
 # Setup bin and shim locations for desired channel, and detect invalid channels
@@ -142,7 +142,7 @@ find $BUILD_DIR/.apt -type f -ipath '*/pkgconfig/*.pc' | xargs --no-run-if-empty
 
 topic "Creating google-chrome shims"
 
-if [ remote_debugging ];
+if [ remote_debugging == 'on' ];
 then
     OPTIONS='--no-sandbox --remote-debugging-port=9222'
 else
